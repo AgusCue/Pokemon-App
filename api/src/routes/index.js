@@ -40,7 +40,7 @@ const getApiInfo = async () => {
 const allPokemons = getApiInfo();
 console.log(allPokemons);
 
-router.get("/pokemon", async (req, res) => {
+router.get("/pokemons", async (req, res) => {
   try {
     const allPokemons = await getApiInfo();
     res.status(200).send(allPokemons);
