@@ -19,7 +19,7 @@ export default function Home() {
     dispatch(getPokemon());
     setTimeout(() => {
       setCount(true);
-    }, 2000);
+    }, 5000);
   }, []);
 
   return (
