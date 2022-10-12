@@ -1,7 +1,7 @@
 import React from "react";
 import "../home/home.css";
 
-export default function card({
+export default function Card({
   image,
   name,
   hp,
@@ -10,19 +10,21 @@ export default function card({
   speed,
   height,
   weight,
+  types,
+  // typesImg,
 }) {
   return (
     <div
-      class="row row-cols-1 row-cols-md-5 g-4  "
-      data-aos="flip-left"
+      class="row row-cols-1 row-cols-md-5 g-4 "
+      data-aos="zoom-in"
       data-aos-easing="ease-out-cubic"
       data-aos-duration="2000"
-      data-aos-offset="200"
+      data-aos-offset="100"
       data-aos-delay="50"
-      data-aos-mirror="true"
+      style={{ marginTop: "-5px" }}
     >
-      <div class="card w-100  bg-secondary bg-opacity-25">
-        <div class="row g-0 d-flex align-items-center text-center d-flex justify-content-between w-100">
+      <div class="card w-100 bg-secondary bg-opacity-50 ">
+        <div class="row g-0 d-flex align-items-center text-center d-flex justify-content-between w-100 ">
           <h1 class="card-title position-relative">{name}</h1>
           <div class="col-md-4">
             <img src={image} class="img-fluid rounded-start w-100" alt="..." />
@@ -80,6 +82,19 @@ export default function card({
               </ul>
             </div>
           </div>
+
+          {types?.map((e) => {
+            return (
+              <div class="row g-0 text-center w-50 justify-content-center d-flex align-items-center mt-2 mb-2">
+                <div class="col-sm-6 col-md-6">
+                  <h5>{e.name}</h5>
+                </div>
+                <div class="col-6 col-md-1">
+                  <img src={e.img} alt={e.img} />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

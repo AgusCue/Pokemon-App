@@ -1,0 +1,31 @@
+.oculto{
+    display: none;
+}
+
+.hola img{
+    border-radius: 50%;
+    box-shadow: 4px 4px 3px gray;
+}
+
+.hola img:hover{
+    cursor: pointer;
+   zoom: calc(1.1);
+   position: static;
+   border-radius: 50%;
+   box-shadow: 4px 4px 3px white;
+}
+
+
+
+
+
+@media (max-width: 800px) {
+
+    .hola{
+        display: none;
+    }
+
+    .oculto{
+        display: flex;
+    }
+  }

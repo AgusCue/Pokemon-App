@@ -1,15 +1,64 @@
 import React from "react";
 import "../home/home.css";
+import typeImage from "./types";
+import "./navbar.css";
+import { getName, getType } from "../../redux/action";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function card({}) {
+export default function Navbar({ setCurrentPage }) {
+  const typesFilter = Object.entries(typeImage);
+  console.log(typesFilter, "typesFilter");
+  const dispatch = useDispatch();
+  const [name, setName] = useState("");
+
+  function handleType(e) {
+    console.log(e);
+    dispatch(getType(e));
+    setCurrentPage(1);
+  }
+
+  function handleInput(e) {
+    console.log(e.target.value, "e.target.value");
+    setName(e.target.value);
+  }
+
+  function handleClick(e) {
+    console.log(name);
+    dispatch(getName(name.toLowerCase()));
+    setCurrentPage(1);
+  }
+
   return (
-    <nav class="navbar navbar-dark bg-dark ">
+    <nav class="navbar navbar-dark bg-dark w-100 m-0">
       <div class="container-fluid">
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/2560px-International_Pok%C3%A9mon_logo.svg.png"
           alt=""
           style={{ width: "150px", height: "50px" }}
         />
+
+        <div class="container text-center " className="hola">
+          <div class="col g-2 g-lg-3 w-100 ">
+            {typesFilter?.map((a, i) => {
+              return (
+                <button
+                  style={{
+                    height: "60px",
+                    width: "60px",
+                    backgroundColor: "transparent",
+                    border: "none",
+                  }}
+                  key={i}
+                  value={a[0]}
+                  onClick={(e) => handleType(a[0])}
+                >
+                  <img class="w-0 m-1" src={a[1]} alt={a[0]} height={"45px"} />
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
         <button
           class="navbar-toggler"
@@ -43,17 +92,20 @@ export default function card({}) {
             ></button>
           </div>
           <div class="offcanvas-body">
-            <form class="d-flex mt-3" role="search">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn btn-success" type="submit">
-                Search
-              </button>
-            </form>
+            <input
+              class="form-control me-2"
+              type="text"
+              placeholder="Search"
+              onChange={(e) => handleInput(e)}
+            />
+            <button
+              class="btn btn-success"
+              type="submit"
+              onClick={() => handleClick()}
+            >
+              Search
+            </button>
+
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">
@@ -65,38 +117,25 @@ export default function card({}) {
                   Create pokemon
                 </a>
               </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Dropdown
-                </a>
-
-                <ul class="dropdown-menu dropdown-menu-dark">
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      Another action
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      Something else here
-                    </a>
-                  </li>
-                </ul>
-              </li>
             </ul>
+          </div>
+          <div class="container text-center" className="oculto">
+            <div class="col g-2 g-lg-3 w-100 ">
+              {typesFilter?.map((e) => {
+                return (
+                  <button
+                    style={{
+                      height: "60px",
+                      width: "60px",
+                      backgroundColor: "transparent",
+                      border: "none",
+                    }}
+                  >
+                    <img class="w-0 m-1" src={e[1]} alt="" height={"45px"} />
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

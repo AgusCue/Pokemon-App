@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const axios = require("axios");
 const e = require("express");
+
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -22,6 +23,12 @@ const getApiInfo = async () => {
         id: pokemon.data.id,
         name: pokemon.data.name,
         img: imagenes2,
+        types: pokemon.data.types.map((e) => {
+          return {
+            name: e.type.name,
+            img: `https://typedex.app/images/ui/types/dark/${e.type.name}.svg`,
+          };
+        }),
         hp: pokemon.data.stats[0].base_stat,
         attack: pokemon.data.stats[1].base_stat,
         defense: pokemon.data.stats[2].base_stat,
@@ -37,15 +44,32 @@ const getApiInfo = async () => {
   }
 };
 
-const allPokemons = getApiInfo();
-console.log(allPokemons);
-
 router.get("/pokemons", async (req, res) => {
-  try {
-    const allPokemons = await getApiInfo();
+  const { name, type } = req.query;
+
+  const allPokemons = await getApiInfo();
+  console.log(type);
+
+  if (name) {
+    const filterName = await allPokemons.filter((e) =>
+      e.name.toLowerCase().includes(name.toLowerCase())
+    );
+    console.log(filterName, "filterName");
+    filterName.length
+      ? res.status(200).send(filterName)
+      : res.status(400).send("No existe ese Pokemon");
+  } else if (type) {
+    const array = allPokemons.filter((poke) =>
+      poke.types.find((t) => t.name === type)
+    );
+
+    console.log(array);
+
+    array.length
+      ? res.status(200).send(array)
+      : res.status(400).send("No hay pokemones con ese Type");
+  } else {
     res.status(200).send(allPokemons);
-  } catch (error) {
-    res.status(404).send("Error in /pokemon", error);
   }
 });
 

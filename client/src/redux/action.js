@@ -10,3 +10,25 @@ export const getPokemon = () => {
     });
   };
 };
+
+export const getName = (name) => {
+  return async (dispatch) => {
+    const url = "/pokemons?name=" + name;
+    const info = await axios.get(url);
+    return dispatch({
+      type: "GET_NAME",
+      payload: info.data,
+    });
+  };
+};
+
+export const getType = (type) => {
+  return async (dispatch) => {
+    const url = "/pokemons?type=" + type;
+    const info = await axios.get(url);
+    return dispatch({
+      type: "GET_TYPE",
+      payload: info.data,
+    });
+  };
+};

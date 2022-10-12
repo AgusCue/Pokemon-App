@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
 
+.home{
+    background-color: #b0c2f2;
+    width: 100%;
+   
+}
+
 .cards{
     font-family: 'Silkscreen', cursive;  
-                           
+           
 }
